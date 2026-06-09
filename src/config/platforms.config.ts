@@ -3,12 +3,13 @@ class PlatformsAvailable {
     twitch: boolean = false;
     kick: boolean = false;
 
-    public setPlatformAvailable(plateformList: Map<string, string | null>) {
-        for (const [platform, plateformUrl] of plateformList) {
-            if (!plateformUrl) {
+    public setPlatformAvailable(platformList: Map<string, string | null>) {
+        for (const [platformKey, platformUrl] of platformList) {
+            if (!platformUrl) {
                 continue;
             }
-            this.setPlatform(platform.replace("_URL", ""));
+
+            this.setPlatform(platformKey.replace("_URL", ""));
         }
     }
 
