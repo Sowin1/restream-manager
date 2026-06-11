@@ -22,6 +22,11 @@ This project is still evolving.
 
 If you are new to the project, the best first step is to explore the source code and the streaming service implementation in [`src/services/stream.service.ts`](src/services/stream.service.ts).
 
+## Encoded Stream
+
+Video : H264
+Audio : AAC
+
 ## Support
 
 If you want to support a French esports organization that runs tournaments across different games, take a look at [Greenstar Esport](https://greenstar-esport.com).
