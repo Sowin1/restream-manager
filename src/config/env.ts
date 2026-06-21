@@ -2,6 +2,7 @@
 
 import "dotenv/config";
 import process from "node:process";
+import { PLATFORMS } from "./platforms";
 
 class EnvironmentVariable {
   private platforms = new Map<string, string | null>();
@@ -10,8 +11,6 @@ class EnvironmentVariable {
   private readonly sourceUrl: string;
 
   constructor() {
-    const platformsToLoad = ["YOUTUBE", "TWITCH", "KICK", "TIKTOK"];
-
     try {
       this.port = Number(process.env.PORT) || 3000;
 
@@ -23,8 +22,9 @@ class EnvironmentVariable {
 
       this.sourceUrl = sourceUrl;
 
-      platformsToLoad.forEach((platform) => {
-        const platformUrl = process.env[`${platform}_URL`] || null;
+      PLATFORMS.forEach((platform) => {
+        const envKey = `${platform.toUpperCase()}_URL`;
+        const platformUrl = process.env[envKey] || null;
         this.platforms.set(platform.toLowerCase(), platformUrl);
       });
     } catch (err: unknown) {

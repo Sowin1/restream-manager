@@ -1,8 +1,7 @@
 import { spawn } from "child_process";
 import { env } from "../config/env";
 import { processManager } from "../../app";
-
-type Platform = "youtube" | "twitch" | "kick" | "tiktok";
+import type { Platform } from "../config/platforms";
 
 export class FfmpegService {
 
