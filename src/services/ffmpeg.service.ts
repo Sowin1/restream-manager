@@ -15,6 +15,12 @@ export class FfmpegService {
     processManager.add(platform, process);
   }
 
+  public stop(platform: Platform) {
+    if(processManager.isRunning(platform)){
+      processManager.stop(platform);
+    }
+  }
+
   private getInputUrl(): string {
     const inputUrl = env.getSourceUrl();
 
