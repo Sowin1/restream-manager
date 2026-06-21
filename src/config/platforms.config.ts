@@ -1,8 +1,10 @@
+import { PLATFORMS, type Platform } from "./platforms";
+
 export class PlatformsAvailable {
-    youtube: boolean = false;
-    twitch: boolean = false;
-    kick: boolean = false;
-    tiktok: boolean = false;
+    youtube = false;
+    twitch = false;
+    kick = false;
+    tiktok = false;
 
     public setPlatformAvailable(platformList: Map<string, string | null>) {
         for (const [platformKey, platformUrl] of platformList) {
@@ -15,11 +17,12 @@ export class PlatformsAvailable {
     }
 
     private setPlatform(platform: string) {
-        const platformName = platform.toLowerCase();
+        const platformName = platform.toLowerCase() as Platform;
 
-        if (platformName === "youtube") this.youtube = true;
-        if (platformName === "twitch") this.twitch = true;
-        if (platformName === "kick") this.kick = true;
-        if (platformName === "tiktok") this.tiktok = true;
+        if (!PLATFORMS.includes(platformName)) {
+            return;
+        }
+
+        this[platformName] = true;
     }
 }

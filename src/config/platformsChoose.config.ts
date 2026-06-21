@@ -1,10 +1,16 @@
-export class PlatformsChoose {
-    youtube: boolean = false;
-    twitch: boolean = false;
-    kick: boolean = false;
-    tiktok: boolean = false;
+import { PLATFORMS, type Platform } from "./platforms";
 
-    setChoose(platform: keyof Pick<PlatformsChoose, "youtube" | "twitch" | "kick" | "tiktok">) {
+export class PlatformsChoose {
+    youtube = false;
+    twitch = false;
+    kick = false;
+    tiktok = false;
+
+    setChoose(platform: Platform) {
+        if (!PLATFORMS.includes(platform)) {
+            return;
+        }
+
         this[platform] = !this[platform];
     }
 }
