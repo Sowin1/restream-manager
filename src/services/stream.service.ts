@@ -9,6 +9,7 @@ export class StreamService {
   private platformsAvailable = new PlatformsAvailable();
   private platformsChoose = new PlatformsChoose();
   private ffmpeg = new FfmpegService();
+  private runningPlatforms: Platform[] = [];
 
   constructor() {
     for (const platform of PLATFORMS) {
@@ -20,16 +21,20 @@ export class StreamService {
 
   start() {
     this.isLive = true;
-    const platform: Platform[] = this.getSelectedAvailablePlatforms(
+    this.runningPlatforms = this.getSelectedAvailablePlatforms(
       this.platformsAvailable,
       this.platformsChoose,
     );
-    platform.forEach((platform) => {
+    this.runningPlatforms.forEach((platform) => {
       this.ffmpeg.startFfmpeg(platform);
     });
   }
 
   stop() {
+    this.runningPlatforms.forEach((platform) => {
+      this.ffmpeg.stop(platform);
+    });
+    this.runningPlatforms = [];
     this.isLive = false;
   }
 
