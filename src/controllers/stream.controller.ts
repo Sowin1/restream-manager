@@ -1,9 +1,11 @@
+import { streamService } from "../../app";
+
 export class StreamController {
 
-    public streamStart(){
-        // Calling starting stream service
+    public streamStart() {
+        streamService.start();
     }
-    public streamStop(){
-        // Calling stop stream service
+    public streamStop() {
+        streamService.stop();
     }
 }
