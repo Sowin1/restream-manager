@@ -1,6 +1,6 @@
 import { ChildProcess } from "node:child_process";
 
-class ProcessManager {
+export class ProcessManager {
     private processes = new Map<string, ChildProcess>();
 
     public add(plateform: string, process: ChildProcess) {
