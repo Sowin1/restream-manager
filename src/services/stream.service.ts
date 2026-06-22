@@ -3,6 +3,7 @@ import { PlatformsChoose } from "../config/platformsChoose.config";
 import { env } from "../config/env";
 import { PLATFORMS, type Platform } from "../config/platforms";
 import { FfmpegService } from "../services/ffmpeg.service";
+import { platform } from "node:os";
 
 export class StreamService {
   private isLive = false;
@@ -39,7 +40,19 @@ export class StreamService {
   }
 
   getStatus() {
-    return this.isLive;
+    const running: Record<"stream" | Platform, boolean> = {
+      stream: this.isLive,
+      youtube: false,
+      twitch: false,
+      kick: false,
+      tiktok: false,
+    };
+
+    this.runningPlatforms.forEach((platform) => {
+      running[platform] = true;
+    });
+
+    return running;
   }
 
   public getSelectedAvailablePlatforms(

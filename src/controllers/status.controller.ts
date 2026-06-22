@@ -1,5 +1,7 @@
+import { streamService } from "../../app";
+
 export class StatusController {
-    public streamStatus(){
-        // calling stream status service
+    public streamStatus() {
+        return streamService.getStatus();
     }
 }
