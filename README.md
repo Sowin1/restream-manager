@@ -22,6 +22,26 @@ This project is still evolving.
 
 If you are new to the project, the best first step is to explore the source code and the streaming service implementation in [`src/services/stream.service.ts`](src/services/stream.service.ts).
 
+## Authentication
+
+`/stream/start`, `/stream/stop`, and `/status` are protected with JWT.
+
+1. Set these environment variables:
+   - `AUTH_USERNAME`
+   - `AUTH_PASSWORD`
+   - `JWT_SECRET`
+2. Request a token with `POST /auth/login` and a JSON body:
+
+```json
+{
+  "username": "your-username",
+  "password": "your-password"
+}
+```
+
+3. Send the token as `Authorization: Bearer <token>` on protected routes.
+4. The token does not expire automatically; it stays valid until you change `JWT_SECRET`.
+
 ## Encoded Stream
 
 Video : H264
@@ -34,4 +54,3 @@ If you want to support a French esports organization that runs tournaments acros
 ## Contributing
 
 If you plan to contribute, please follow the project guidelines and keep changes focused and easy to review.
-
