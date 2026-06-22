@@ -3,7 +3,6 @@ import { PlatformsChoose } from "../config/platformsChoose.config";
 import { env } from "../config/env";
 import { PLATFORMS, type Platform } from "../config/platforms";
 import { FfmpegService } from "../services/ffmpeg.service";
-import { platform } from "node:os";
 
 export class StreamService {
   private isLive = false;
