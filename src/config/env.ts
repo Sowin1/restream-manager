@@ -9,6 +9,9 @@ class EnvironmentVariable {
 
   public readonly port: number;
   private readonly sourceUrl: string;
+  private readonly authUsername: string;
+  private readonly authPassword: string;
+  private readonly jwtSecret: string;
 
   constructor() {
     try {
@@ -21,6 +24,24 @@ class EnvironmentVariable {
       }
 
       this.sourceUrl = sourceUrl;
+
+      const authUsername = process.env.AUTH_USERNAME;
+      if (!authUsername) {
+        throw new Error("AUTH_USERNAME is not defined");
+      }
+      this.authUsername = authUsername;
+
+      const authPassword = process.env.AUTH_PASSWORD;
+      if (!authPassword) {
+        throw new Error("AUTH_PASSWORD is not defined");
+      }
+      this.authPassword = authPassword;
+
+      const jwtSecret = process.env.JWT_SECRET;
+      if (!jwtSecret) {
+        throw new Error("JWT_SECRET is not defined");
+      }
+      this.jwtSecret = jwtSecret;
 
       PLATFORMS.forEach((platform) => {
         const envKey = `${platform.toUpperCase()}_URL`;
@@ -44,6 +65,18 @@ class EnvironmentVariable {
 
   public getPlatformUrl(platform: string): string | null {
     return this.platforms.get(platform.toLowerCase()) ?? null;
+  }
+
+  public getAuthUsername(): string {
+    return this.authUsername;
+  }
+
+  public getAuthPassword(): string {
+    return this.authPassword;
+  }
+
+  public getJwtSecret(): string {
+    return this.jwtSecret;
   }
 }
 
