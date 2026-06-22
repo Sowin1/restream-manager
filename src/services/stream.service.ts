@@ -16,6 +16,9 @@ export class StreamService {
     for (const platform of PLATFORMS) {
       if (env.getPlatformUrl(platform)) {
         this.platformsAvailable[platform] = true;
+        // temporary
+        this.platformsChoose[platform] = true;
+        // temporary
       }
     }
   }

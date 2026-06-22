@@ -1,6 +1,7 @@
 {
   "scripts": {
     "build": "tsc",
+    "lint": "tsc --noEmit",
     "start": "node dist/index.js"
   },
   "dependencies": {
