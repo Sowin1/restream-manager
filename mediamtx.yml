@@ -1,0 +1,6 @@
+paths:
+  live:
+    runOnReady: >
+      curl -X POST http://restream-manager:3000/stream/start
+    runOnNotReady: >
+      curl -X POST http://restream-manager:3000/stream/stop
