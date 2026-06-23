@@ -1,6 +1,6 @@
 paths:
-  live:
+  restream/manager:
     runOnReady: >
-      curl -X POST http://restream-manager:3000/stream/start
+      curl -X POST http://restream-manager:3000/stream/start -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbiJ9.-apN52jDRenTHkTdBVQLFIcByDq1wKiwdvEdbLSZl2U'
     runOnNotReady: >
-      curl -X POST http://restream-manager:3000/stream/stop
+      curl -X POST http://restream-manager:3000/stream/stop -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbiJ9.-apN52jDRenTHkTdBVQLFIcByDq1wKiwdvEdbLSZl2U'
