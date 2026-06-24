@@ -15,6 +15,10 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.workflow_run.head_sha }}
+          fetch-depth: 0
+          fetch-tags: true
 
       - name: Download artefact
         uses: actions/download-artifact@v4
@@ -24,11 +28,26 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           run-id: ${{ github.event.workflow_run.id }}
 
+      - name: Resolve version tag
+        id: version
+        run: |
+          VERSION=$(git tag --points-at HEAD | grep '^v' | head -n 1 || true)
+          if [ -z "$VERSION" ]; then
+            echo "No version tag starting with 'v' found on the release commit."
+            exit 1
+          fi
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+          echo "sha=${{ github.event.workflow_run.head_sha }}" >> "$GITHUB_OUTPUT"
+
       - name: Build Docker image
-        run: docker build -t ghcr.io/${{ github.repository }}:${{ github.event.workflow_run.head_sha }} .
+        run: |
+          docker build \
+            -t ghcr.io/${{ github.repository }}:${{ steps.version.outputs.version }} \
+            -t ghcr.io/${{ github.repository }}:${{ steps.version.outputs.sha }} \
+            .
 
       - name: Save Docker image
-        run: docker save ghcr.io/${{ github.repository }}:${{ github.event.workflow_run.head_sha }} -o docker-image.tar
+        run: docker save ghcr.io/${{ github.repository }}:${{ steps.version.outputs.version }} -o docker-image.tar
 
       - name: Upload Docker image
         uses: actions/upload-artifact@v4
@@ -45,6 +64,24 @@ jobs:
       packages: write
 
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.workflow_run.head_sha }}
+          fetch-depth: 0
+          fetch-tags: true
+
+      - name: Resolve version tag
+        id: version
+        run: |
+          VERSION=$(git tag --points-at HEAD | grep '^v' | head -n 1 || true)
+          if [ -z "$VERSION" ]; then
+            echo "No version tag starting with 'v' found on the release commit."
+            exit 1
+          fi
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+          echo "sha=${{ github.event.workflow_run.head_sha }}" >> "$GITHUB_OUTPUT"
+
       - name: Download Docker image
         uses: actions/download-artifact@v4
         with:
@@ -62,4 +99,6 @@ jobs:
         run: docker load -i docker-image.tar
 
       - name: Push Docker image
-        run: docker push ghcr.io/${{ github.repository }}:${{ github.event.workflow_run.head_sha }}
+        run: |
+          docker push ghcr.io/${{ github.repository }}:${{ steps.version.outputs.version }}
+          docker push ghcr.io/${{ github.repository }}:${{ steps.version.outputs.sha }}
