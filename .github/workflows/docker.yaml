@@ -7,6 +7,11 @@ on:
     types:
       - completed
 
+permissions:
+  actions: read
+  contents: read
+  packages: write
+
 jobs:
   job_docker:
     if: ${{ github.event.workflow_run.conclusion == 'success' }}
@@ -59,9 +64,6 @@ jobs:
     if: ${{ github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest
     needs: job_docker
-    permissions:
-      contents: read
-      packages: write
 
     steps:
       - name: Checkout repository
