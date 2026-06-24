@@ -51,7 +51,7 @@ docker run \
   -e YOUTUBE_URL="" \
   -e KICK_URL="" \
   -e TIKTOK_URL="" \
-  ghcr.io/ton-org/restream-manager:latest
+  ghcr.io/Sowin1/restream-manager:latest
 ```
 
 ## Environment Variables
