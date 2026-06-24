@@ -105,4 +105,16 @@ If you want to support a French esports organization that runs tournaments acros
 
 ## Contributing
 
-If you plan to contribute, please keep changes focused and easy to review.
+If you plan to contribute, please follow the project guidelines and keep changes focused and easy to review.
+
+## License
+
+The project uses MediaMTX under the MIT License.
+
+Restream Manager is also licensed under the MIT License.
+
+## Reuse
+
+You are free to reuse and adapt this project under the terms of the MIT License.
+
+If you reuse MediaMTX or Restream Manager in another project, keep the relevant license notices and attribution.
