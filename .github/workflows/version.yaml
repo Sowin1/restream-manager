@@ -1,0 +1,27 @@
+name: Verify version
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  job_tag:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          fetch-tags: true
+
+      - name: Verify tag exists on HEAD
+        run: |
+          TAGS=$(git tag --points-at HEAD | grep '^v' || true)
+          if [ -z "$TAGS" ]; then
+            echo "No version tag starting with 'v' found on this commit."
+            exit 1
+          fi
+          echo "Version tags on this commit:"
+          echo "$TAGS"
