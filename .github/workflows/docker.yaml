@@ -44,15 +44,21 @@ jobs:
           echo "version=$VERSION" >> "$GITHUB_OUTPUT"
           echo "sha=${{ github.event.workflow_run.head_sha }}" >> "$GITHUB_OUTPUT"
 
+      - name: Resolve image repository
+        id: image
+        run: |
+          IMAGE_REPOSITORY="ghcr.io/${GITHUB_REPOSITORY,,}"
+          echo "repository=$IMAGE_REPOSITORY" >> "$GITHUB_OUTPUT"
+
       - name: Build Docker image
         run: |
           docker build \
-            -t ghcr.io/${{ github.repository }}:${{ steps.version.outputs.version }} \
-            -t ghcr.io/${{ github.repository }}:${{ steps.version.outputs.sha }} \
+            -t ${{ steps.image.outputs.repository }}:${{ steps.version.outputs.version }} \
+            -t ${{ steps.image.outputs.repository }}:${{ steps.version.outputs.sha }} \
             .
 
       - name: Save Docker image
-        run: docker save ghcr.io/${{ github.repository }}:${{ steps.version.outputs.version }} -o docker-image.tar
+        run: docker save ${{ steps.image.outputs.repository }}:${{ steps.version.outputs.version }} -o docker-image.tar
 
       - name: Upload Docker image
         uses: actions/upload-artifact@v4
@@ -84,6 +90,12 @@ jobs:
           echo "version=$VERSION" >> "$GITHUB_OUTPUT"
           echo "sha=${{ github.event.workflow_run.head_sha }}" >> "$GITHUB_OUTPUT"
 
+      - name: Resolve image repository
+        id: image
+        run: |
+          IMAGE_REPOSITORY="ghcr.io/${GITHUB_REPOSITORY,,}"
+          echo "repository=$IMAGE_REPOSITORY" >> "$GITHUB_OUTPUT"
+
       - name: Download Docker image
         uses: actions/download-artifact@v4
         with:
@@ -102,5 +114,5 @@ jobs:
 
       - name: Push Docker image
         run: |
-          docker push ghcr.io/${{ github.repository }}:${{ steps.version.outputs.version }}
-          docker push ghcr.io/${{ github.repository }}:${{ steps.version.outputs.sha }}
+          docker push ${{ steps.image.outputs.repository }}:${{ steps.version.outputs.version }}
+          docker push ${{ steps.image.outputs.repository }}:${{ steps.version.outputs.sha }}
