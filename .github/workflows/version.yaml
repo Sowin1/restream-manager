@@ -2,12 +2,9 @@ name: Verify version
 
 on:
   push:
-    branches:
-      - main
-  pull_request:
-    branches:
-        - main
-        
+    tags:
+      - 'v*'
+
 jobs:
   job_tag:
     runs-on: ubuntu-latest
