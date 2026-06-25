@@ -21,3 +21,12 @@ services:
       - "3000:3000"
     depends_on:
       - mediamtx
+
+  onboarding-restream:
+    container_name: onboarding-restream
+    image: nginx:alpine
+    restart: unless-stopped
+    ports:
+      - "8080:80"
+    volumes:
+      - ./frontend:/usr/share/nginx/html:ro
