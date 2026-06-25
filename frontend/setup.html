@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Setup Restream Manager</title>
+    <link rel="stylesheet" href="setup.css" />
+    <script src="script.js" defer></script>
+  </head>
+  <body>
+    <nav class="topbar">
+      <h1>Restream Manager</h1>
+    </nav>
+
+    <main class="page">
+      <section class="setup-panel">
+        <header class="panel-header">
+          <p>Setup</p>
+          <h2>Add stream keys</h2>
+          <span>Horizontal output only</span>
+        </header>
+
+        <form id="platform-token-form" class="setup-form">
+          <label class="field">
+            <span>Auth username</span>
+            <input
+              type="text"
+              name="AUTH_USERNAME"
+              placeholder="admin"
+              autocomplete="username"
+            />
+          </label>
+
+          <label class="field">
+            <span>Auth password</span>
+            <input
+              type="password"
+              name="AUTH_PASSWORD"
+              placeholder="admin123"
+              autocomplete="new-password"
+            />
+          </label>
+
+          <label class="field">
+            <span>JWT secret</span>
+            <input
+              type="password"
+              name="JWT_SECRET"
+              placeholder="very-long-random-secret"
+              autocomplete="off"
+            />
+          </label>
+
+          <label class="field">
+            <span>Twitch</span>
+            <input
+              type="password"
+              name="TWITCH_TOKEN"
+              placeholder="Twitch stream key"
+              autocomplete="off"
+            />
+          </label>
+
+          <label class="field">
+            <span>YouTube</span>
+            <input
+              type="password"
+              name="YOUTUBE_TOKEN"
+              placeholder="YouTube stream key"
+              autocomplete="off"
+            />
+          </label>
+
+          <label class="field">
+            <span>Kick</span>
+            <input
+              type="password"
+              name="KICK_TOKEN"
+              placeholder="Kick stream key"
+              autocomplete="off"
+            />
+          </label>
+
+          <label class="field">
+            <span>TikTok</span>
+            <input
+              type="password"
+              name="TIKTOK_TOKEN"
+              placeholder="TikTok stream key"
+              autocomplete="off"
+            />
+          </label>
+
+          <button type="submit">Save</button>
+        </form>
+
+        <section class="command-output" aria-live="polite">
+          <h3>Docker command</h3>
+          <pre id="docker-command"></pre>
+        </section>
+      </section>
+    </main>
+  </body>
+</html>
